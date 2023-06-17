@@ -138,8 +138,25 @@ fn find_libwasmedge() -> Option<Paths> {
     // search in the env variables: WASMEDGE_INCLUDE_DIR, WASMEDGE_LIB_DIR
     let inc_dir = env_path!("WASMEDGE_INCLUDE_DIR");
     let lib_dir = env_path!("WASMEDGE_LIB_DIR");
-    if let Some(inc_dir) = inc_dir {
-        if let Some(lib_dir) = lib_dir {
+    println!(
+        "cargo:warning=[wasmedge-sys] inc_dir: {:?}, lib_dir: {:?}",
+        inc_dir, lib_dir);
+    if let Some(mut inc_dir) = inc_dir {
+        if let Some(mut lib_dir) = lib_dir {
+            if inc_dir.is_file() {
+                inc_dir.pop();
+                // check if last dir in path is wasmedge
+                if inc_dir.ends_with("wasmedge") {
+                    inc_dir.pop();
+                }
+            }
+            if lib_dir.is_file() {
+                lib_dir.pop();
+            }
+            println!(
+                "cargo:warning=[wasmedge-sys] inc_dir: {:?}, lib_dir: {:?}",
+                inc_dir, lib_dir
+            );
             let header = inc_dir.join("wasmedge");
             let header = header.join(WASMEDGE_H);
             if inc_dir.exists() && lib_dir.exists() && header.exists() {
@@ -270,8 +287,25 @@ fn find_libwasmedge() -> Option<Paths> {
     // search in the env variables: WASMEDGE_INCLUDE_DIR, WASMEDGE_LIB_DIR
     let inc_dir = env_path!("WASMEDGE_INCLUDE_DIR");
     let lib_dir = env_path!("WASMEDGE_LIB_DIR");
-    if let Some(inc_dir) = inc_dir {
-        if let Some(lib_dir) = lib_dir {
+    println!(
+        "cargo:warning=[wasmedge-sys] inc_dir: {:?}, lib_dir: {:?}",
+        inc_dir, lib_dir);
+    if let Some(mut inc_dir) = inc_dir {
+        if let Some(mut lib_dir) = lib_dir {
+            if inc_dir.is_file() {
+                inc_dir.pop();
+                // check if last dir in path is wasmedge
+                if inc_dir.ends_with("wasmedge") {
+                    inc_dir.pop();
+                }
+            }
+            if lib_dir.is_file() {
+                lib_dir.pop();
+            }
+            println!(
+                "cargo:warning=[wasmedge-sys] inc_dir: {:?}, lib_dir: {:?}",
+                inc_dir, lib_dir
+            );
             let header = inc_dir.join("wasmedge");
             let header = header.join(WASMEDGE_H);
             if inc_dir.exists() && lib_dir.exists() && header.exists() {
